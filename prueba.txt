@@ -1,0 +1,21 @@
+PROGRAmA Nombre_conjunto
+	Conjuntos
+	
+		ConjuntoA={4,5}
+		ConjuntoB={1,2,3,3}
+		ConjuntoC={2,1,3,,3,6,6}
+		2={}
+		ConjuntoD={6,8,7}
+		conjuntoe={9}
+	Inicio
+		Conjuntoa=conjuntob+conjuntoc
+		conjuntob=conjuntoa-conjuntoc
+		
+		conjuntoc=conjuntoc*conjuntod
+		
+	Resultados
+		Escribir(conjuntoa)
+		Escribir(conjuntob)
+		Escribir(conjuntoc)
+FiN
+	

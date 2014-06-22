@@ -1,0 +1,3 @@
+conjuntoa={1,2,3,6}
+conjuntob={}
+conjuntoc={6}
