@@ -1,5 +1,0 @@
-
-
-	nombre01	2541	direccion01	45+48
-	nombre02	4697	direccion02	65-25
-	nombre03	9561	direccion03	51+66

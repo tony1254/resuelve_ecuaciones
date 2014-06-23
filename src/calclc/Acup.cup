@@ -1,0 +1,83 @@
+package calclc;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java_cup.runtime.*;
+import javax.swing.JOptionPane;
+
+action code{::}
+parser code{:public String busca;
+:}
+
+/*Declaracion de variables no terminales*/
+
+non terminal  COND,EXP,EXP2,EXP3,TIPO_DATO;
+
+/*DECLARACION DE VARIABLES TERMINALES */
+
+terminal  sum_,res_,mul_,div_,pos_,id,LP,RP;
+terminal Integer numero;
+precedence  left sum_, res_;
+precedence  left mul_, div_;
+precedence  left pos_;
+precedence  left LP,RP;
+
+start with COND; 
+COND::=EXP:e{: System.out.println("x= "+e);
+    try{
+                                    BufferedReader bf = new BufferedReader(new FileReader(parser.busca));
+                                    String cad="";
+                                    while ((cad = bf.readLine())!=null) {
+                                        //System.out.println(cad);
+                                    JOptionPane.showMessageDialog(null,"UNIVERCIDAD MARIANO GALVEZ DE GUATEMALA\n                Facultad de Ingenieria en Sistemas\n\nRESPUESTA:\n"+cad+" = "+e+"\n\nAutor: Luis Antonio Garcia Aguirre         1690-10-1493\nVercion: 1.0\nPractica de Compiladores\nTrabajado en Java\nCompilador NetBeans IDE","RESPUESTA!!!", JOptionPane.WARNING_MESSAGE);
+                                    }              
+                                    }catch(Exception ex){ 
+                                    System.out.println(ex);
+                                    } 
+:};
+
+EXP::=EXP:a sum_ EXP:b{:
+       RESULT= new Integer (Integer.parseInt(a.toString())+Integer.parseInt(b.toString()));
+:}
+    |EXP:a res_ EXP:b{:
+       RESULT= new Integer (Integer.parseInt(a.toString())-Integer.parseInt(b.toString()));
+:}
+    |EXP:a mul_ EXP:b{:
+       RESULT= new Integer (Integer.parseInt(a.toString())*Integer.parseInt(b.toString()));
+:}
+    |EXP:a div_ EXP:b{:
+       RESULT= new Integer (Integer.parseInt(a.toString())/Integer.parseInt(b.toString()));
+:}
+    |EXP:a pos_ EXP:b{:
+       RESULT= new Integer ((int)Math.pow(Integer.parseInt(a.toString()),Integer.parseInt(b.toString())));
+:}
+    | LP EXP:e RP
+{: RESULT=e; :}
+    |TIPO_DATO:t{:RESULT=new Integer(Integer.parseInt(t.toString()));:};
+
+TIPO_DATO::= id:i{:RESULT=i; :}
+          |numero:n{:RESULT=new Integer(Integer.parseInt(n.toString()));:};
+
+/*
+EXP::=EXP sum_ EXP2
+    |EXP res_ EXP2
+    |EXP2
+    |EXP3;
+
+
+EXP2::=EXP2:a div_ EXP3:b{: 
+        String val1=a.getValor();
+        String val2=b.getValor();
+        RESULT=val1/val2;  :}
+    |EXP2:c mul_ EXP3:d{: 
+        String val1=c.getValor();
+        String val2=d.getValor();
+        RESULT=val1^val2;  :}
+    |EXP3;
+
+EXP3::=EXP3:b pos_ EXP3:e{: 
+        String val1=b.getValor();
+        String val2=e.getValor();
+        RESULT=val1^val2;  :}
+    |TIPO_DATO:T{:RESULT=T:};
+*/

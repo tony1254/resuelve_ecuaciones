@@ -1,0 +1,67 @@
+package calclc;
+import java_cup.runtime.Symbol;
+%%
+%{
+        String st="";
+public String comp(String str){
+st=st+str;
+    
+    return st;
+}
+  public void imprime(String str){
+    System.out.print(str);
+  }
+%}
+
+%class lex
+%public
+%char
+%line
+%ignorecase
+%cup
+%full
+%type java_cup.runtime.Symbol
+%implements java_cup.runtime.Scanner
+%eofval{
+//System.out.println("FIN DEL ARCHIVO");
+return null;
+%eofval}
+letra=[a-zA-Z]
+numero=[0-9]
+id=[a-zA-Z][A-Za-z0-9]*
+%% 
+"(" { imprime("(");
+comp("(");
+return new Symbol(sym.LP); }
+")" { imprime(")");
+comp(")");
+return new Symbol(sym.RP); }
+"+" {imprime("+");
+comp("+");
+      return new Symbol(sym.sum_);
+    }
+"-" {imprime("-");
+comp("-");
+      return new Symbol(sym.res_);
+      }
+"*" {imprime("*");
+comp("*");
+	return new Symbol(sym.mul_);
+      }
+"/" {imprime("/");
+comp("/");
+	return new Symbol(sym.div_);
+      }
+"^" {imprime("^");
+comp("^");
+	return new Symbol(sym.pos_);
+      }
+{numero}+ {imprime(yytext());
+comp(yytext());
+	  return new Symbol(sym.numero, new Integer(yytext()));
+	}
+[\t\r\f]  {}
+[\n] {yychar=0;}
+" " {}
+ . {imprime("error: "+yytext());
+    }

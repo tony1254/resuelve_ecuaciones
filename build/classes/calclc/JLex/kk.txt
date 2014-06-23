@@ -1,0 +1,9 @@
+File Archivo=new File("Salida.txt");
+FileWriter escrive=new FileWriter(Archivo);
+BufferedWriter bw=new BufferedWriter(escrive);
+PrintWriter  salida=new PrintWriter(bw);
+
+salida.println(tmpt+"}");
+
+salida.close();
+bw.close();

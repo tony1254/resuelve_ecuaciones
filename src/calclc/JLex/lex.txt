@@ -1,0 +1,120 @@
+import java_cup.runtime.Symbol;
+%%
+%{
+  public void imprime(String str){
+    System.out.println(str+"-"+yychar+"-"+yyline);
+  }
+%}
+%class lexc
+%public
+%char
+%line
+%ignorecase
+%cup
+%full
+%type java_cup.runtime.Symbol
+%implements java_cup.runtime.Scanner
+%eofval{
+System.out.println("FIN DEL ARCHIVO");
+return null;
+%eofval}
+letra=[a-zA-Z]
+numero=[0-9]
+id=[a-zA-Z][A-Za-z0-9]*
+%% 
+"(" {imprime("Abre Parentesis");
+      return new Symbol(sym.open_par);
+      }
+")" {imprime("Cierra Parentesis");
+      return new Symbol(sym.close_par);
+      }
+"+" {imprime("mas");
+      return new Symbol(sym.mas_);
+    }
+"-" {imprime("menos");
+      return new Symbol(sym.res_);
+      }
+"*" {imprime("multiplicacion");
+	return new Symbol(sym.mul_);
+      }
+"/" {imprime("divicion");
+	return new Symbol(sym.div_);
+      }
+"^" {imprime("Potencia");
+	return new Symbol(sym.pos_);
+      }
+({id})+("_")*({id})* {imprime("id");
+	return new Symbol(sym.id);
+	}
+{numero}+ {imprime("numero");
+	  return new Symbol(sym.numero);
+	}
+[\t\r\f]  {}
+[\n] {yychar=0;}
+" " {}
+ . {imprime("error: "+yytext());
+    }
+
+
+
+
+
+
+
+
+import java_cup.runtime.Symbol;
+%%
+%{
+  public void imprime(String str){
+    System.out.println(str+"-"+yychar+"-"+yyline);
+  }
+%}
+%class lexc
+%public
+%char
+%line
+%ignorecase
+%cup
+%full
+%type java_cup.runtime.Symbol
+%implements java_cup.runtime.Scanner
+%eofval{
+System.out.println("FIN DEL ARCHIVO");
+return null;
+%eofval}
+letra=[a-zA-Z]
+numero=[0-9]
+id=[a-zA-Z][A-Za-z0-9]*
+%% 
+"(" {imprime("Abre Parentesis");
+      return new Symbol(csym.open_par,new token(yytext(),yychar,yyline));
+      }
+")" {imprime("Cierra Parentesis");
+      return new Symbol(csym.close_par,new token(yytext(),yychar,yyline));
+      }
+"+" {imprime("mas");
+      return new Symbol(csym.mas_,new token(yytext(),yychar,yyline));
+    }
+"-" {imprime("menos");
+      return new Symbol(csym.res_,new token(yytext(),yychar,yyline));
+      }
+"*" {imprime("multiplicacion");
+	return new Symbol(csym.mul_,new token(yytext(),yychar,yyline));
+      }
+"/" {imprime("divicion");
+	return new Symbol(csym.div_,new token(yytext(),yychar,yyline));
+      }
+"^" {imprime("Potencia");
+	return new Symbol(csym.pos_,new token(yytext(),yychar,yyline));
+      }
+({id})+("_")*({id})* {imprime("id");
+	return new Symbol(csym.id,new token(yytext(),yychar,yyline));
+	}
+{numero}+ {imprime("numero");
+	  return new Symbol(csym.numero,new token(yytext(),yychar,yyline));
+	}
+[\t\r\f]  {}
+[\n] {yychar=0;}
+" " {}
+ . {imprime("error: "+yytext());
+    }
